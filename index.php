@@ -1,4 +1,7 @@
-<?php include 'php/config.php'; ?>
+<?php
+session_start();
+include 'php/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +16,21 @@
     <!-- Navbar -->
     <header>
         <div class="navbar">
-            <div class="logo">TechRefurb</div>
+            <div class="logo"><a href="index.php">TechRefurb</a></div>
             <nav>
-                <a href="#">Home</a>
+                <a href="index.php">Home</a>
                 <a href="#">Products</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
             </nav>
-            <a href="#" class="nav-login">Login</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <div class="nav-user">
+                    👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;
+                    <a href="logout.php">Logout</a>
+                </div>
+            <?php else: ?>
+                <a href="login.php" class="nav-login">Login</a>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -43,61 +53,24 @@
         <h2>Featured Products</h2>
         <p class="section-sub">Handpicked. Tested. Guaranteed.</p>
         <div class="product-grid">
+            <?php
+            $result = mysqli_query($conn, "SELECT * FROM products LIMIT 6");
+            while ($product = mysqli_fetch_assoc($result)) {
+                $icon = "💻";
+                if ($product['category'] == "Phone") $icon = "📱";
+                if ($product['category'] == "Accessory") $icon = "🎧";
 
-            <div class="product-card">
-                <div class="product-img">💻</div>
-                <span class="grade grade-a">Grade A</span>
-                <h3>Dell Latitude 5490</h3>
-                <p>Intel i5 · 8GB RAM · 256GB SSD</p>
-                <div class="price">QAR 1,299</div>
-                <a href="#" class="btn-card">Add to Cart</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img">📱</div>
-                <span class="grade grade-a">Grade A</span>
-                <h3>Samsung Galaxy S21</h3>
-                <p>128GB · Excellent condition</p>
-                <div class="price">QAR 899</div>
-                <a href="#" class="btn-card">Add to Cart</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img">💻</div>
-                <span class="grade grade-b">Grade B</span>
-                <h3>HP EliteBook 840</h3>
-                <p>Intel i7 · 16GB RAM · 512GB SSD</p>
-                <div class="price">QAR 1,799</div>
-                <a href="#" class="btn-card">Add to Cart</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img">📱</div>
-                <span class="grade grade-a">Grade A</span>
-                <h3>iPhone 13</h3>
-                <p>256GB · Battery 89%</p>
-                <div class="price">QAR 1,499</div>
-                <a href="#" class="btn-card">Add to Cart</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img">🎧</div>
-                <span class="grade grade-b">Grade B</span>
-                <h3>Sony WH-1000XM4</h3>
-                <p>Noise Cancelling · Good condition</p>
-                <div class="price">QAR 499</div>
-                <a href="#" class="btn-card">Add to Cart</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img">💻</div>
-                <span class="grade grade-c">Grade C</span>
-                <h3>Lenovo ThinkPad T470</h3>
-                <p>Intel i5 · 8GB RAM · 256GB SSD</p>
-                <div class="price">QAR 799</div>
-                <a href="#" class="btn-card">Add to Cart</a>
-            </div>
-
+                $grade_class = "grade-" . strtolower($product['grade']);
+            ?>
+                <div class="product-card">
+                    <div class="product-img"><?php echo $icon; ?></div>
+                    <span class="grade <?php echo $grade_class; ?>">Grade <?php echo $product['grade']; ?></span>
+                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                    <p><?php echo htmlspecialchars($product['description']); ?></p>
+                    <div class="price">QAR <?php echo number_format($product['price'], 2); ?></div>
+                    <a href="#" class="btn-card">Add to Cart</a>
+                </div>
+            <?php } ?>
         </div>
     </section>
 
@@ -141,7 +114,7 @@
                 <a href="#">Products</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
-                <a href="#">Login</a>
+                <a href="login.php">Login</a>
             </div>
         </div>
         <div class="footer-bottom">
