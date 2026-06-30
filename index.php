@@ -68,7 +68,7 @@ include 'php/config.php';
                     <h3><?php echo htmlspecialchars($product['name']); ?></h3>
                     <p><?php echo htmlspecialchars($product['description']); ?></p>
                     <div class="price">QAR <?php echo number_format($product['price'], 2); ?></div>
-                    <a href="#" class="btn-card">Add to Cart</a>
+                    <a href="<?php echo isset($_SESSION['user_id']) ? 'cart.php?add=' . $product['id'] : 'login.php'; ?>" class="btn-card">Add to Cart</a>
                 </div>
             <?php } ?>
         </div>
