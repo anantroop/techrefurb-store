@@ -19,7 +19,7 @@ include 'php/config.php';
             <div class="logo"><a href="index.php">TechRefurb</a></div>
             <nav>
                 <a href="index.php">Home</a>
-                <a href="#">Products</a>
+                <a href="products.php">Products</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
             </nav>
