@@ -90,7 +90,7 @@ $user = mysqli_fetch_assoc($user_query);
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
                 <a href="about.php">About</a>
-                <a href="#">Contact</a>
+                <a href="contact.php">Contact</a>
             </nav>
             <div class="nav-user">
                 👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;

@@ -30,7 +30,7 @@ $result = mysqli_query($conn, $query);
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
                 <a href="about.php">About</a>
-                <a href="#">Contact</a>
+                <a href="contact.php">Contact</a>
             </nav>
             <?php if (isset($_SESSION['user_id'])):
                 $cart_count = getCartCount($conn, $_SESSION['user_id']);

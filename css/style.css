@@ -859,3 +859,89 @@ footer {
     color: #6e6e73;
     line-height: 1.6;
 }
+
+/* ── Contact Page ── */
+.contact-hero {
+    text-align: center;
+    padding: 100px 20px 90px;
+    background-color: #f5f5f7;
+}
+
+.contact-hero h1 {
+    font-size: 52px;
+    font-weight: 700;
+    color: #1d1d1f;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+}
+
+.contact-section {
+    padding: 80px 60px 100px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contact-info h3,
+.contact-form-box h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 28px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.contact-icon {
+    font-size: 24px;
+    margin-top: 2px;
+}
+
+.contact-label {
+    font-size: 12px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.contact-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+.contact-form-box {
+    background-color: #f5f5f7;
+    border-radius: 18px;
+    padding: 36px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d2d2d7;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s;
+    background-color: #fff;
+}
+
+textarea:focus {
+    border-color: #0071e3;
+}
