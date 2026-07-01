@@ -97,7 +97,7 @@ $cart_count = getCartCount($conn, $user_id);
                 <span>QAR <?php echo number_format($total, 2); ?></span>
             </div>
 
-            <a href="#" class="btn-primary cart-checkout">Checkout</a>
+            <a href="checkout.php" class="btn-primary cart-checkout">Checkout</a>
         <?php endif; ?>
     </section>
 
