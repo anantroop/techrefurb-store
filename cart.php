@@ -55,7 +55,7 @@ $cart_count = getCartCount($conn, $user_id);
             <nav>
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
                 <a href="#">Contact</a>
             </nav>
             <div class="nav-user">
@@ -107,7 +107,7 @@ $cart_count = getCartCount($conn, $user_id);
             <div class="footer-links">
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
                 <a href="login.php">Login</a>
             </div>
         </div>

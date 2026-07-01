@@ -89,7 +89,7 @@ $user = mysqli_fetch_assoc($user_query);
             <nav>
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
                 <a href="#">Contact</a>
             </nav>
             <div class="nav-user">
@@ -175,7 +175,7 @@ $user = mysqli_fetch_assoc($user_query);
             <div class="footer-links">
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
                 <a href="login.php">Login</a>
             </div>
         </div>

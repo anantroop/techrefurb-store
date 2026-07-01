@@ -29,7 +29,7 @@ $result = mysqli_query($conn, $query);
             <nav>
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
                 <a href="#">Contact</a>
             </nav>
             <?php if (isset($_SESSION['user_id'])):
@@ -96,7 +96,7 @@ $result = mysqli_query($conn, $query);
             <div class="footer-links">
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
                 <a href="login.php">Login</a>
             </div>
         </div>

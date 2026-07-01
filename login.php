@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
             <nav>
                 <a href="index.php">Home</a>
                 <a href="#">Products</a>
-                <a href="#">About</a>
+                <a href="about.php">About</a>
             </nav>
             <a href="login.php" class="nav-login">Login</a>
         </div>
