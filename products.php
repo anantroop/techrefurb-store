@@ -4,13 +4,16 @@ include 'php/config.php';
 
 $category_filter = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
 $grade_filter = isset($_GET['grade']) ? mysqli_real_escape_string($conn, $_GET['grade']) : '';
+$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
 
 $query = "SELECT * FROM products WHERE 1=1";
 if ($category_filter) $query .= " AND category='$category_filter'";
 if ($grade_filter) $query .= " AND grade='$grade_filter'";
+if ($search) $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%')";
 $query .= " ORDER BY created_at DESC";
 
 $result = mysqli_query($conn, $query);
+$cart_count = isset($_SESSION['user_id']) ? getCartCount($conn, $_SESSION['user_id']) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +21,7 @@ $result = mysqli_query($conn, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products – TechRefurb</title>
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -32,9 +35,7 @@ $result = mysqli_query($conn, $query);
                 <a href="about.php">About</a>
                 <a href="contact.php">Contact</a>
             </nav>
-            <?php if (isset($_SESSION['user_id'])):
-                $cart_count = getCartCount($conn, $_SESSION['user_id']);
-            ?>
+            <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="nav-user">
                     👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;
                     <a href="cart.php" class="cart-link">
@@ -51,22 +52,47 @@ $result = mysqli_query($conn, $query);
     </header>
 
     <section class="products-page">
+
         <div class="products-header">
             <h1>All Products</h1>
             <p>Browse our full range of certified refurbished tech</p>
+
+            <!-- Search Bar -->
+            <form method="GET" action="products.php" class="search-form">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search); ?>">
+                    <?php if ($category_filter): ?>
+                        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category_filter); ?>">
+                    <?php endif; ?>
+                    <?php if ($grade_filter): ?>
+                        <input type="hidden" name="grade" value="<?php echo htmlspecialchars($grade_filter); ?>">
+                    <?php endif; ?>
+                    <button type="submit" class="search-btn">Search</button>
+                    <?php if ($search): ?>
+                        <a href="products.php" class="search-clear">✕</a>
+                    <?php endif; ?>
+                </div>
+            </form>
+
+            <?php if ($search): ?>
+                <p class="search-results">Showing results for "<strong><?php echo htmlspecialchars($search); ?></strong>"</p>
+            <?php endif; ?>
         </div>
 
+        <!-- Filters -->
         <div class="filters">
-            <a href="products.php" class="filter-btn <?php echo (!$category_filter && !$grade_filter) ? 'active' : ''; ?>">All</a>
-            <a href="products.php?category=Laptop" class="filter-btn <?php echo ($category_filter == 'Laptop') ? 'active' : ''; ?>">💻 Laptops</a>
-            <a href="products.php?category=Phone" class="filter-btn <?php echo ($category_filter == 'Phone') ? 'active' : ''; ?>">📱 Phones</a>
-            <a href="products.php?category=Accessory" class="filter-btn <?php echo ($category_filter == 'Accessory') ? 'active' : ''; ?>">🎧 Accessories</a>
+            <a href="products.php" class="filter-btn <?php echo (!$category_filter && !$grade_filter && !$search) ? 'active' : ''; ?>">All</a>
+            <a href="products.php?category=Laptop<?php echo $search ? '&search='.$search : ''; ?>" class="filter-btn <?php echo ($category_filter == 'Laptop') ? 'active' : ''; ?>">💻 Laptops</a>
+            <a href="products.php?category=Phone<?php echo $search ? '&search='.$search : ''; ?>" class="filter-btn <?php echo ($category_filter == 'Phone') ? 'active' : ''; ?>">📱 Phones</a>
+            <a href="products.php?category=Accessory<?php echo $search ? '&search='.$search : ''; ?>" class="filter-btn <?php echo ($category_filter == 'Accessory') ? 'active' : ''; ?>">🎧 Accessories</a>
             <span class="filter-divider">|</span>
-            <a href="products.php?grade=A" class="filter-btn <?php echo ($grade_filter == 'A') ? 'active' : ''; ?>">Grade A</a>
-            <a href="products.php?grade=B" class="filter-btn <?php echo ($grade_filter == 'B') ? 'active' : ''; ?>">Grade B</a>
-            <a href="products.php?grade=C" class="filter-btn <?php echo ($grade_filter == 'C') ? 'active' : ''; ?>">Grade C</a>
+            <a href="products.php?grade=A<?php echo $search ? '&search='.$search : ''; ?>" class="filter-btn <?php echo ($grade_filter == 'A') ? 'active' : ''; ?>">Grade A</a>
+            <a href="products.php?grade=B<?php echo $search ? '&search='.$search : ''; ?>" class="filter-btn <?php echo ($grade_filter == 'B') ? 'active' : ''; ?>">Grade B</a>
+            <a href="products.php?grade=C<?php echo $search ? '&search='.$search : ''; ?>" class="filter-btn <?php echo ($grade_filter == 'C') ? 'active' : ''; ?>">Grade C</a>
         </div>
 
+        <!-- Product Grid -->
         <div class="product-grid">
             <?php if (mysqli_num_rows($result) == 0): ?>
                 <p class="no-products">No products found. <a href="products.php">Clear filters</a></p>
@@ -88,6 +114,7 @@ $result = mysqli_query($conn, $query);
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>
+
     </section>
 
     <footer>
@@ -97,6 +124,7 @@ $result = mysqli_query($conn, $query);
                 <a href="index.php">Home</a>
                 <a href="products.php">Products</a>
                 <a href="about.php">About</a>
+                <a href="contact.php">Contact</a>
                 <a href="login.php">Login</a>
             </div>
         </div>
