@@ -945,3 +945,152 @@ textarea {
 textarea:focus {
     border-color: #0071e3;
 }
+
+/* ── Admin Panel ── */
+.admin-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+}
+
+.admin-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.admin-stat-card {
+    background-color: #f5f5f7;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+}
+
+.admin-stat-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+}
+
+.admin-stat-card p {
+    font-size: 13px;
+    color: #6e6e73;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.admin-form-box {
+    background-color: #f5f5f7;
+    border-radius: 18px;
+    padding: 32px;
+}
+
+.admin-form-box h3,
+.admin-table-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 24px;
+}
+
+.admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+}
+
+.admin-cancel {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #6e6e73;
+    text-decoration: none;
+}
+
+.admin-cancel:hover {
+    color: #1d1d1f;
+}
+
+.admin-table-box {
+    background-color: #f5f5f7;
+    border-radius: 18px;
+    padding: 32px;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-table tbody td {
+    padding: 14px 12px;
+    color: #1d1d1f;
+    border-bottom: 1px solid #e8e8ed;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #ebebf0;
+    border-radius: 8px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.admin-edit {
+    color: #0071e3;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.admin-edit:hover {
+    text-decoration: underline;
+}
+
+.admin-delete {
+    color: #b91c1c;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.admin-delete:hover {
+    text-decoration: underline;
+}
