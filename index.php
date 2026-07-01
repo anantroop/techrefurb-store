@@ -8,12 +8,11 @@ include 'php/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechRefurb Store</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Navbar -->
     <header>
         <div class="navbar">
             <div class="logo"><a href="index.php">TechRefurb</a></div>
@@ -23,9 +22,16 @@ include 'php/config.php';
                 <a href="#">About</a>
                 <a href="#">Contact</a>
             </nav>
-            <?php if (isset($_SESSION['user_id'])): ?>
+            <?php if (isset($_SESSION['user_id'])):
+                $cart_count = getCartCount($conn, $_SESSION['user_id']);
+            ?>
                 <div class="nav-user">
                     👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;
+                    <a href="cart.php" class="cart-link">
+                        🛒 Cart <?php if ($cart_count > 0): ?>
+                            <span class="cart-badge"><?php echo $cart_count; ?></span>
+                        <?php endif; ?>
+                    </a> &nbsp;|&nbsp;
                     <a href="logout.php">Logout</a>
                 </div>
             <?php else: ?>
@@ -34,21 +40,18 @@ include 'php/config.php';
         </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
         <p class="hero-eyebrow">Certified Refurbished</p>
         <h1>The best tech.<br>At honest prices.</h1>
         <p class="hero-sub">Shop refurbished laptops, phones and accessories — all graded, tested and ready.</p>
         <div class="hero-buttons">
-            <a href="#" class="btn-primary">Shop Now</a>
+            <a href="products.php" class="btn-primary">Shop Now</a>
             <a href="#" class="btn-ghost">Learn more ›</a>
         </div>
     </section>
 
-    <!-- Divider -->
     <div class="divider"></div>
 
-    <!-- Products -->
     <section class="products">
         <h2>Featured Products</h2>
         <p class="section-sub">Handpicked. Tested. Guaranteed.</p>
@@ -59,7 +62,6 @@ include 'php/config.php';
                 $icon = "💻";
                 if ($product['category'] == "Phone") $icon = "📱";
                 if ($product['category'] == "Accessory") $icon = "🎧";
-
                 $grade_class = "grade-" . strtolower($product['grade']);
             ?>
                 <div class="product-card">
@@ -74,10 +76,8 @@ include 'php/config.php';
         </div>
     </section>
 
-    <!-- Divider -->
     <div class="divider"></div>
 
-    <!-- Why Us -->
     <section class="why-us">
         <h2>Why TechRefurb?</h2>
         <p class="section-sub">Every device earns its place.</p>
@@ -105,13 +105,12 @@ include 'php/config.php';
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-top">
             <div class="footer-logo">TechRefurb</div>
             <div class="footer-links">
-                <a href="#">Home</a>
-                <a href="#">Products</a>
+                <a href="index.php">Home</a>
+                <a href="products.php">Products</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
                 <a href="login.php">Login</a>

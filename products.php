@@ -2,7 +2,6 @@
 session_start();
 include 'php/config.php';
 
-// Filter logic
 $category_filter = isset($_GET['category']) ? mysqli_real_escape_string($conn, $_GET['category']) : '';
 $grade_filter = isset($_GET['grade']) ? mysqli_real_escape_string($conn, $_GET['grade']) : '';
 
@@ -33,10 +32,16 @@ $result = mysqli_query($conn, $query);
                 <a href="#">About</a>
                 <a href="#">Contact</a>
             </nav>
-            <?php if (isset($_SESSION['user_id'])): ?>
+            <?php if (isset($_SESSION['user_id'])):
+                $cart_count = getCartCount($conn, $_SESSION['user_id']);
+            ?>
                 <div class="nav-user">
                     👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;
-                    <a href="cart.php">🛒 Cart</a> &nbsp;|&nbsp;
+                    <a href="cart.php" class="cart-link">
+                        🛒 Cart <?php if ($cart_count > 0): ?>
+                            <span class="cart-badge"><?php echo $cart_count; ?></span>
+                        <?php endif; ?>
+                    </a> &nbsp;|&nbsp;
                     <a href="logout.php">Logout</a>
                 </div>
             <?php else: ?>
@@ -46,13 +51,11 @@ $result = mysqli_query($conn, $query);
     </header>
 
     <section class="products-page">
-
         <div class="products-header">
             <h1>All Products</h1>
             <p>Browse our full range of certified refurbished tech</p>
         </div>
 
-        <!-- Filters -->
         <div class="filters">
             <a href="products.php" class="filter-btn <?php echo (!$category_filter && !$grade_filter) ? 'active' : ''; ?>">All</a>
             <a href="products.php?category=Laptop" class="filter-btn <?php echo ($category_filter == 'Laptop') ? 'active' : ''; ?>">💻 Laptops</a>
@@ -64,7 +67,6 @@ $result = mysqli_query($conn, $query);
             <a href="products.php?grade=C" class="filter-btn <?php echo ($grade_filter == 'C') ? 'active' : ''; ?>">Grade C</a>
         </div>
 
-        <!-- Product Grid -->
         <div class="product-grid">
             <?php if (mysqli_num_rows($result) == 0): ?>
                 <p class="no-products">No products found. <a href="products.php">Clear filters</a></p>
@@ -86,7 +88,6 @@ $result = mysqli_query($conn, $query);
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>
-
     </section>
 
     <footer>

@@ -9,10 +9,8 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Handle Add to Cart
 if (isset($_GET['add'])) {
     $product_id = intval($_GET['add']);
-
     $check = mysqli_query($conn, "SELECT * FROM cart WHERE user_id=$user_id AND product_id=$product_id");
     if (mysqli_num_rows($check) > 0) {
         mysqli_query($conn, "UPDATE cart SET quantity = quantity + 1 WHERE user_id=$user_id AND product_id=$product_id");
@@ -23,7 +21,6 @@ if (isset($_GET['add'])) {
     exit();
 }
 
-// Handle Remove from Cart
 if (isset($_GET['remove'])) {
     $cart_id = intval($_GET['remove']);
     mysqli_query($conn, "DELETE FROM cart WHERE id=$cart_id AND user_id=$user_id");
@@ -31,7 +28,6 @@ if (isset($_GET['remove'])) {
     exit();
 }
 
-// Get cart items
 $cart_query = mysqli_query($conn, "
     SELECT cart.id as cart_id, cart.quantity, products.name, products.price, products.grade
     FROM cart
@@ -40,6 +36,7 @@ $cart_query = mysqli_query($conn, "
 ");
 
 $total = 0;
+$cart_count = getCartCount($conn, $user_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +44,7 @@ $total = 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart – TechRefurb</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -57,11 +54,17 @@ $total = 0;
             <div class="logo"><a href="index.php">TechRefurb</a></div>
             <nav>
                 <a href="index.php">Home</a>
-                <a href="#">Products</a>
+                <a href="products.php">Products</a>
                 <a href="#">About</a>
+                <a href="#">Contact</a>
             </nav>
             <div class="nav-user">
                 👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;
+                <a href="cart.php" class="cart-link">
+                    🛒 Cart <?php if ($cart_count > 0): ?>
+                        <span class="cart-badge"><?php echo $cart_count; ?></span>
+                    <?php endif; ?>
+                </a> &nbsp;|&nbsp;
                 <a href="logout.php">Logout</a>
             </div>
         </div>
@@ -71,7 +74,7 @@ $total = 0;
         <h2>Your Cart</h2>
 
         <?php if (mysqli_num_rows($cart_query) == 0): ?>
-            <p class="cart-empty">Your cart is empty. <a href="index.php">Continue shopping →</a></p>
+            <p class="cart-empty">Your cart is empty. <a href="products.php">Continue shopping →</a></p>
         <?php else: ?>
             <div class="cart-list">
                 <?php while ($item = mysqli_fetch_assoc($cart_query)):
@@ -97,6 +100,21 @@ $total = 0;
             <a href="#" class="btn-primary cart-checkout">Checkout</a>
         <?php endif; ?>
     </section>
+
+    <footer>
+        <div class="footer-top">
+            <div class="footer-logo">TechRefurb</div>
+            <div class="footer-links">
+                <a href="index.php">Home</a>
+                <a href="products.php">Products</a>
+                <a href="#">About</a>
+                <a href="login.php">Login</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2026 TechRefurb Store. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
