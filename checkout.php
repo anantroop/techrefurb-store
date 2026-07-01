@@ -180,7 +180,7 @@ $user = mysqli_fetch_assoc($user_query);
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Copyright &copy; 2026 TechRefurb Store. All rights reserved.</p>
+            <p>Copyright &copy; 2026 TechRefurb Store. All rights reserved. &nbsp;·&nbsp; <a href="admin_login.php" class="admin-footer-link">Admin</a></p>
         </div>
     </footer>
 

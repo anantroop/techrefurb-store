@@ -2,6 +2,12 @@
 session_start();
 include 'php/config.php';
 
+// Admin protection - separate from user login
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: admin_login.php");
+    exit();
+}
+
 // Simple admin protection
 if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 1) {
     header("Location: index.php");
@@ -81,7 +87,7 @@ $total_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_price)
             </nav>
             <div class="nav-user">
                 👤 Admin &nbsp;|&nbsp;
-                <a href="logout.php">Logout</a>
+                <a href="admin_logout.php">Logout</a>
             </div>
         </div>
     </header>
