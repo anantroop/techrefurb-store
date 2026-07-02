@@ -1172,3 +1172,137 @@ textarea:focus {
 .search-results strong {
     color: #1d1d1f;
 }
+/* ── Orders Page ── */
+.orders-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px 100px;
+}
+
+.orders-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+}
+
+.orders-empty {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.orders-empty span {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.orders-empty h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 8px;
+}
+
+.orders-empty p {
+    color: #6e6e73;
+    margin-bottom: 28px;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    background-color: #f5f5f7;
+    border-radius: 18px;
+    padding: 24px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.order-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 4px;
+}
+
+.order-date {
+    font-size: 13px;
+    color: #6e6e73;
+}
+
+.order-header-right {
+    text-align: right;
+}
+
+.order-status {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background-color: #fff3cc;
+    color: #9a6700;
+}
+
+.status-processing {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-delivered {
+    background-color: #d4f5e2;
+    color: #1a7f44;
+}
+
+.order-total {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1d1d1f;
+}
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.order-item-name {
+    flex: 1;
+    color: #1d1d1f;
+    font-weight: 500;
+}
+
+.order-item-qty {
+    color: #6e6e73;
+    font-size: 13px;
+}
+
+.order-item-price {
+    font-weight: 600;
+    color: #1d1d1f;
+}

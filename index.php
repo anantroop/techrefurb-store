@@ -31,7 +31,7 @@ include 'php/config.php';
                         🛒 Cart <?php if ($cart_count > 0): ?>
                             <span class="cart-badge"><?php echo $cart_count; ?></span>
                         <?php endif; ?>
-                    </a> &nbsp;|&nbsp;
+                    <a href="orders.php">My Orders</a> &nbsp;|&nbsp;
                     <a href="logout.php">Logout</a>
                 </div>
             <?php else: ?>

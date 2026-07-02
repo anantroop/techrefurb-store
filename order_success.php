@@ -31,7 +31,8 @@ $cart_count = 0;
                 <a href="contact.php">Contact</a>
             </nav>
             <div class="nav-user">
-                👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> &nbsp;|&nbsp;
+                👋 <?php echo htmlspecialchars($_SESSION['user_name']); ?> ;
+                <a href="orders.php">My Orders</a> &nbsp;|&nbsp;
                 <a href="logout.php">Logout</a>
             </div>
         </div>
